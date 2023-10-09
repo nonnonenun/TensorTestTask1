@@ -7,9 +7,7 @@ from selenium import webdriver
 
 
 class BasePage:
-    """
-    The Purpose Of A BasePage Is To Contain Methods Common To All Page Objects
-    """
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -21,7 +19,6 @@ class BasePage:
 
     def click(self, locator):
         self.find(*locator).click()
-        # self.driver.find_element(*locator).click() # DRY principle - Dont Repeat Yourself
 
     def set(self, locator, value):
         self.find(*locator).clear()
@@ -49,3 +46,21 @@ class BasePage:
     def scroll_into_view(self, locator):
         element = self.find(*locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+    def scroll_sbis(self):
+        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        self.driver.execute_script("arguments[0].scrollTop=500;", element)
+
+    def scroll_sbis_to_top(self):
+        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        self.driver.execute_script(f"arguments[0].scrollTo(0, 0);", element)
+
+    def scroll_sbis_to_bottom(self):
+        # self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        # document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        # javascript ne znayu
+        # height = self.driver.execute_script('return document.evaluate("//div[starts-with(@data-qa, \'controls-Scroll\')]", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollHeight;')
+        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        scroll_height = self.driver.execute_script('return document.getElementById("container").scrollHeight')
+        # print(scroll_height)
+        self.driver.execute_script(f'arguments[0].scrollTo(0, {scroll_height})', element)

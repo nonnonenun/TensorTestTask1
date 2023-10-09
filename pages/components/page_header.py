@@ -13,8 +13,7 @@ class PageHeader(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @staticmethod
-    def click_home():
+    def click_home(self):
         pass
 
     def click_kontakti(self):
@@ -23,10 +22,8 @@ class PageHeader(BasePage):
         from pages.contacts.contacts_page import ContactsPage
         return ContactsPage(self.driver)
 
-    @staticmethod
-    def click_podderzhka():
+    def click_podderzhka(self):
         pass
 
-    @staticmethod
-    def click_nachat_rabotu():
+    def click_nachat_rabotu(self):
         pass
