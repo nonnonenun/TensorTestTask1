@@ -1,24 +1,19 @@
-# import pytest
-
-# from config.config import TestData
+# "error":"element click intercepted" in firefox browser without time.sleep() before clicks, works in chrome
 from selenium.webdriver.common.by import By
-# from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from config.config import TestData
 from pages.base_page import BasePage
 from pages.components.page_header import PageHeader
-# from pages.contacts.contacts_page import ContactsPage
 from pages.home.home_page import HomePage
+from pages.contacts.contacts_page import ContactsPage
 from tests.base_test import BaseTest
 
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-import time
+class TestTask1Tensor(BaseTest):
 
-
-class TestHome(BaseTest):
-
-    def test_home(self):
+    def test_task_1_tensor(self):
         home_page = HomePage(self.driver)
         header = PageHeader(self.driver)
         title = home_page.get_title()
@@ -27,24 +22,23 @@ class TestHome(BaseTest):
         contacts_page = header.click_kontakti()
 
         title = contacts_page.get_title()
-        print(title)
         assert title[:13] == TestData.SBIS_CONTACTS_TITLE
 
-        wait = WebDriverWait(self.driver, 10)
         original_window = self.driver.current_window_handle
         assert len(self.driver.window_handles) == 1
 
-        time.sleep(1)
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(EC.element_to_be_clickable(ContactsPage.tensor_banner))
         tensor_home = contacts_page.click_tensor_banner()
-        time.sleep(1)
 
         wait.until(EC.number_of_windows_to_be(2))
+
         for window_handle in self.driver.window_handles:
             if window_handle != original_window:
                 self.driver.switch_to.window(window_handle)
                 break
 
-        time.sleep(1)
+        wait.until(EC.title_is(TestData.TENSOR_HOME_TITLE))
 
         url = tensor_home.get_url()
         assert url == TestData.TENSOR_HOME_URL
@@ -56,28 +50,30 @@ class TestHome(BaseTest):
         blok_sila_podrobnee = (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]//a[text()="Подробнее"]')
 
         tensor_home.scroll_into_view(blok_sila)
+
         assert tensor_home.get_text(blok_sila_title) == 'Сила в людях'
 
+        wait.until(EC.visibility_of_element_located(blok_sila_podrobnee))
+        wait.until(EC.element_to_be_clickable(blok_sila_podrobnee))
         tensor_home.click(blok_sila_podrobnee)
 
         tensor_about = BasePage(self.driver)
+
+        wait.until(EC.title_is(TestData.TENSOR_ABOUT_TITLE))
+
         url = tensor_about.get_url()
         assert url == TestData.TENSOR_ABOUT_URL
         title = tensor_about.get_title()
         assert title == TestData.TENSOR_ABOUT_TITLE
 
         blok_rabotaem = (By.XPATH, '//div[@class="tensor_ru-container tensor_ru-section tensor_ru-About__block3"]')
+        wait.until(EC.presence_of_element_located(blok_rabotaem))
         tensor_about.scroll_into_view(blok_rabotaem)
 
-        # fotki_elements_list = tensor_about.find_elements(By.XPATH, '//div[@class="tensor_ru-container tensor_ru-section tensor_ru-About__block3"]//img') # tak rabotaet no dlinno
-
-        # blok_rabotaem_fotki = (By.XPATH, '//div[@class="tensor_ru-container tensor_ru-section tensor_ru-About__block3"]//img') # tak ne rabotaet
-        # fotki_elements_list = tensor_about.find_elements(blok_rabotaem_fotki) # tak ne rabotaet
+        wait.until(EC.visibility_of_element_located(blok_rabotaem))
 
         blok_rabotaem_fotki_xpath = '//div[@class="tensor_ru-container tensor_ru-section tensor_ru-About__block3"]//img'
         vse_foto_bloka_rabotaem = tensor_about.find_elements(By.XPATH, blok_rabotaem_fotki_xpath)
 
-        razmeri_foto = []
         for foto in vse_foto_bloka_rabotaem:
-            razmeri_foto.append(foto.size)
             assert foto.size == vse_foto_bloka_rabotaem[0].size

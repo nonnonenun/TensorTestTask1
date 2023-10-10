@@ -1,6 +1,6 @@
-import time
 from pages.components.page_header import PageHeader
 from tests.base_test import BaseTest
+import time # there's a delay in region change, have no time for this hit atm
 
 
 class TestRegionChange(BaseTest):
@@ -15,7 +15,8 @@ class TestRegionChange(BaseTest):
 
         regions_pop_up = contacts_page.click_region()
         regions_pop_up.select_region('Камчатский край')
-        time.sleep(1)
+
+        time.sleep(1)   # there's a delay in region change, have no time for this hit atm
 
         url = contacts_page.get_url()
         assert url == 'https://sbis.ru/contacts/41-kamchatskij-kraj?tab=clients'

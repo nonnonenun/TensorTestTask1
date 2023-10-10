@@ -17,7 +17,7 @@ def init_driver(request):
     if request.param == 'firefox':
         web_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
     request.cls.driver = web_driver
-    # web_driver.implicitly_wait(10)
+    web_driver.implicitly_wait(10)
     # web_driver.maximize_window()
     web_driver.get(TestData.BASE_URL)
 

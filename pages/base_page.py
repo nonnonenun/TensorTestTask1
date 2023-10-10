@@ -1,12 +1,10 @@
-import time
-
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.actions.wheel_input import ScrollOrigin
-from selenium import webdriver
 
 
 class BasePage:
+
+    sbis_scroller_xpath = '//div[starts-with(@data-qa, "controls-Scroll")]'
 
     def __init__(self, driver):
         self.driver = driver
@@ -33,10 +31,8 @@ class BasePage:
     def get_url(self):
         return self.driver.current_url
 
-    def scroll(self):
-        # self.driver.execute_script('window.scrollTo(0, window.innerHeight);')
+    def scroll(self):   # doesnt work for sbis
         ActionChains(self.driver).scroll_by_amount(0, 200).perform()
-        time.sleep(1)
 
     def move_to_element(self, locator):
         element = self.find(*locator)
@@ -48,19 +44,14 @@ class BasePage:
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     def scroll_sbis(self):
-        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        element = self.find(By.XPATH, self.sbis_scroller_xpath)
         self.driver.execute_script("arguments[0].scrollTop=500;", element)
 
     def scroll_sbis_to_top(self):
-        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        element = self.find(By.XPATH, self.sbis_scroller_xpath)
         self.driver.execute_script(f"arguments[0].scrollTo(0, 0);", element)
 
     def scroll_sbis_to_bottom(self):
-        # self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        # document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-        # javascript ne znayu
-        # height = self.driver.execute_script('return document.evaluate("//div[starts-with(@data-qa, \'controls-Scroll\')]", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollHeight;')
-        element = self.find(By.XPATH, '//div[starts-with(@data-qa, "controls-Scroll")]')
+        element = self.find(By.XPATH, self.sbis_scroller_xpath)
         scroll_height = self.driver.execute_script('return document.getElementById("container").scrollHeight')
-        # print(scroll_height)
         self.driver.execute_script(f'arguments[0].scrollTo(0, {scroll_height})', element)

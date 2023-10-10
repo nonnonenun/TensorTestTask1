@@ -11,15 +11,15 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class ContactsPage(BasePage):
 
-    tensor_banner = By.XPATH, '//a[@class="sbisru-Contacts__logo-tensor mb-12"]'
+    tensor_banner = (By.XPATH, '//a[@class="sbisru-Contacts__logo-tensor mb-12"]')
     current_region = By.XPATH, '//span[@class="sbis_ru-Region-Chooser__text sbis_ru-link"]'
 
     def __init__(self, driver):
         super().__init__(driver)
 
     def click_tensor_banner(self):
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.element_to_be_clickable(self.current_region))
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(EC.element_to_be_clickable(self.tensor_banner))
         self.click(self.tensor_banner)
         return BasePage(self.driver)
 
