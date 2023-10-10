@@ -11,8 +11,14 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 def init_driver(request):
     web_driver = None
     if request.param == 'chrome':
-        service = ChromeService(WebDriverExecutablesPaths.CHROME_EXECUTABLE_PATH)
+        # service = ChromeService(WebDriverExecutablesPaths.CHROME_EXECUTABLE_PATH)
+        service = ChromeService(r'../chromedriver.exe')
         options = webdriver.ChromeOptions()
+        prefs = {"download.default_directory": r"C:\Download",
+                 "download.prompt_for_download": False,
+                 "download.directory_upgrade": True,
+                 "safebrowsing.enabled": True}
+        options.add_experimental_option("prefs", prefs)
         web_driver = webdriver.Chrome(service=service, options=options)
     if request.param == 'firefox':
         web_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))

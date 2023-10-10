@@ -46,8 +46,10 @@ class TestTask1Tensor(BaseTest):
         assert title == TestData.TENSOR_HOME_TITLE
 
         blok_sila = (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]')
-        blok_sila_title = (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]//p[contains(@class,"title")]')
-        blok_sila_podrobnee = (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]//a[text()="Подробнее"]')
+        blok_sila_title =\
+            (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]//p[contains(@class,"title")]')
+        blok_sila_podrobnee =\
+            (By.XPATH, '//div[starts-with(@class,"tensor_ru-Index__block4-content")]//a[text()="Подробнее"]')
 
         tensor_home.scroll_into_view(blok_sila)
 

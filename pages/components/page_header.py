@@ -1,9 +1,3 @@
-import selenium.webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
-# from selenium import webdriver
-
-
 from pages.base_page import BasePage
 from utilities.locators import LocatorsHeader
 

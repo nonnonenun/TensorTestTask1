@@ -1,6 +1,6 @@
 from pages.components.page_header import PageHeader
 from tests.base_test import BaseTest
-import time # there's a delay in region change, have no time for this hit atm
+import time     # there's a delay in region change, have no time for this hit atm
 
 
 class TestRegionChange(BaseTest):
@@ -27,4 +27,3 @@ class TestRegionChange(BaseTest):
 
         kamchatka_partners = contacts_page.get_partners_list()
         assert kamchatka_partners == ['СБИС - Камчатка']
-

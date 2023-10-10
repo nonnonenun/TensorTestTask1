@@ -31,13 +31,13 @@ class BasePage:
     def get_url(self):
         return self.driver.current_url
 
-    def scroll(self):   # doesnt work for sbis
-        ActionChains(self.driver).scroll_by_amount(0, 200).perform()
-
     def move_to_element(self, locator):
         element = self.find(*locator)
         action = ActionChains(self.driver)
         action.move_to_element(element).perform()
+
+    def scroll(self):   # doesnt work for sbis
+        ActionChains(self.driver).scroll_by_amount(0, 200).perform()
 
     def scroll_into_view(self, locator):
         element = self.find(*locator)

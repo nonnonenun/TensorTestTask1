@@ -1,6 +1,4 @@
 from pages.base_page import BasePage
-# from pages.components import page_header
-from pages.components.page_header import PageHeader
 
 
 class HomePage(BasePage):
