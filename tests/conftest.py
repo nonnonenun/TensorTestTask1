@@ -11,8 +11,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 def init_driver(request):
     web_driver = None
     if request.param == 'chrome':
-        # service = ChromeService(WebDriverExecutablesPaths.CHROME_EXECUTABLE_PATH)
-        service = ChromeService(r'../chromedriver.exe')
+        service = ChromeService(WebDriverExecutablesPaths.CHROME_EXECUTABLE_PATH)
         options = webdriver.ChromeOptions()
         prefs = {"download.default_directory": r"C:\Download",
                  "download.prompt_for_download": False,

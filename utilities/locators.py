@@ -13,4 +13,3 @@ class LocatorsContacts:
 
 class LocatorsTensorHeader:
     o_kompanii = (By.XPATH, r'//ul[@name="headerMenu"]//a[text()="О компании"]')
-    # o_kompanii = (By.XPATH, r'//ul[starts-with(@class, "tensor_ru-Header__menu")]//a[text()="О компании"]')

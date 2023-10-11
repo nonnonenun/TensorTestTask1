@@ -1,8 +1,11 @@
-import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages.components.page_footer import PageFooter
+from pages.download.download_page import DownloadPage
 from tests.base_test import BaseTest
 import os
 import send2trash
+import time
 
 
 class TestDownloadPlugin(BaseTest):
@@ -12,10 +15,13 @@ class TestDownloadPlugin(BaseTest):
         footer.scroll_sbis_to_bottom()
         download_page = footer.click_skachat_sbis()
         time.sleep(2)
+        wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.element_to_be_clickable(DownloadPage.sbis_plugin))
         download_page.click_sbis_plugin()
-        time.sleep(5)
+
         expected_web_installer_size = download_page.get_web_installer_size()
 
+        wait.until(EC.element_to_be_clickable(DownloadPage.web_installer_dowload_link))
         download_page.click_download_web_installer()
 
         path_to_file = r'C:\Download\sbisplugin-setup-web.exe'
@@ -38,4 +44,4 @@ class TestDownloadPlugin(BaseTest):
 
         assert file_size_in_mb_rounded == expected_web_installer_size
 
-        send2trash.send2trash(r'C:\Download\*')
+        send2trash.send2trash(r'C:\Download\sbisplugin-setup-web.exe')

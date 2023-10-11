@@ -25,8 +25,6 @@ class DownloadPage(BasePage):
         super().__init__(driver)
 
     def click_sbis_plugin(self):
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.element_to_be_clickable(self.sbis_plugin))
         self.click(self.sbis_plugin)
 
     def click_download_web_installer(self):

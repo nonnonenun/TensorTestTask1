@@ -1,6 +1,6 @@
 class WebDriverExecutablesPaths:
     # CHROME_EXECUTABLE_PATH = r'C:/webdrivers/chromedriver-win64/chromedriver.exe'
-    CHROME_EXECUTABLE_PATH = r'./chromedriver.exe'
+    CHROME_EXECUTABLE_PATH = r'../chromedriver.exe'
 
 
 class TestData:
