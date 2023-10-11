@@ -7,6 +7,10 @@ import os
 import send2trash
 import time
 
+# СКАЧИВАНИЕ В ПАПКУ С ПРОЕКТОМ НЕ РЕАЛИЗОВАНО!
+
+# try downloading via requests or headless mode or configure relative download path(if this is even possible for chrome)
+
 
 class TestDownloadPlugin(BaseTest):
 
